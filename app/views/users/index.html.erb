@@ -1,0 +1,12 @@
+<%= will_paginate @users %>
+<% @users.each do |user| %>
+  <%= user.email %>
+  <%#  if user is a friend %>
+    <%= form_for(Relationship.new) do %>
+      <%= hidden_field_tag "user_id", user.id %>
+      <%= submit_tag "Request Friend" %>
+    <% end %>
+  <%# else delete relationships %>
+  <%# end %>
+  <br/>
+<% end %>

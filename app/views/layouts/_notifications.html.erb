@@ -1,0 +1,9 @@
+<%# if current_user.notifications %>
+  <ul>
+    <% current_user.notifications.each do |notification| %>
+      <li>
+        <%= "#{notification.sender.email} has sent you a friend request" %>
+      </li>
+    <% end %>
+  </ul>
+<%# end %>
