@@ -1,2 +1,10 @@
 <h2><%= @user.email %></h2>
+<ul class="user">
+  <li>
+    <%= gravatar_for @user, size: 75 %>
+    <%= link_to @user.name, @user %>
+  </li>
+</ul>
 <p><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></p>
+<h4>Posts</h4>
+<%= render 'shared/posts' %>

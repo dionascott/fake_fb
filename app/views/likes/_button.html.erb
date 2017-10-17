@@ -1,0 +1,7 @@
+<% if current_user.like?(post) %>
+  <%#= render 'likes/unlike'%>
+  <%= button_to "Unlike", unlike_path(post_id: post.id), remote: true, method: :delete  %>
+<% else %>
+  <%#= render 'likes/like'%>
+  <%= button_to "Like", like_path(post_id: post.id), remote: true  %>
+<% end %>

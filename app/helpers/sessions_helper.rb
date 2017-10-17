@@ -15,4 +15,9 @@ module SessionsHelper
       redirect_to root_path
     end
   end
+
+  def redirect_back_to(path)
+    session[:return_to] ||= request.referer
+    redirect_to(session.delete(:return_to) || path)
+  end
 end

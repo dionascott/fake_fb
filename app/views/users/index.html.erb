@@ -1,12 +1,22 @@
 <%= will_paginate @users %>
 <% @users.each do |user| %>
-  <%= user.email %>
-  <%#  if user is a friend %>
+  <ul class="user">
+    <li>
+      <%= gravatar_for user, size: 75 %>
+      <%= link_to user.name, user %>
+    </li>
+  </ul>
+  <%  if current_user.friends_posts_ids.include? user.id %>
+    Already Friends <%# delete friends link%>
+  <%  elsif current_user.pending_friends_posts_ids.include? user.id %>
+    Accept Friend Request? <%# accept friends link%>
+  <%  elsif current_user.requested_friends_posts_ids.include? user.id %>
+    Pending Friends <%# accept friends link%>
+  <%  else current_user.friends_posts_ids.include? user.id %>
     <%= form_for(Relationship.new) do %>
       <%= hidden_field_tag "user_id", user.id %>
       <%= submit_tag "Request Friend" %>
     <% end %>
-  <%# else delete relationships %>
-  <%# end %>
+  <% end %>
   <br/>
 <% end %>

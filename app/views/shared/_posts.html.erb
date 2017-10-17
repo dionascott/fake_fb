@@ -1,0 +1,31 @@
+<%= will_paginate @posts %>
+  <% @posts.each do |post| %>
+    <ul class="user">
+      <li>
+        <%= gravatar_for post.author, size: 75 %>
+        <%= link_to post.author.name, post.author %>
+      </li>
+    </ul>
+    Post: <%= post.content %><br>
+    <%= form_for @comment do |f| %>
+      <%= f.label :content, "Comment" %>
+      <%= f.text_area :content, size: "30x3" %>
+      <%= f.hidden_field :post_id, value: post.id %>
+      <%= f.submit %>
+    <% end %>
+    <%= div_for post do %>
+       <%= render partial: "likes/button", locals: { post: post } %>
+    <% end %>
+    <% if post.comments.any? %>
+      <% post.comments.each do |comment| %>
+        Comment: <%= comment.content %><br>
+        By:      <%= comment.commenter.email %><br>
+      <% end %>
+    <% end %>
+    <% if post.likes.any? %>
+      <% post.likes.each do |like| %>
+        <%= like.liker.email %> liked this post.<br>
+      <% end %>
+    <% end %>
+  <% end %>
+<%= will_paginate @posts %>

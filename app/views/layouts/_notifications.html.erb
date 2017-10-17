@@ -1,9 +1,19 @@
-<%# if current_user.notifications %>
+<% if user_signed_in? %>
+  <% if current_user.notifications %>
+    <ul>
+      <% current_user.notifications.each do |notification| %>
+        <li>
+          <%= "#{notification.sender.email} has sent you a friend request" %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <ul>
+      <li>You have no new notifications</li>
+    </ul>
+  <% end %>
+<% else %>
   <ul>
-    <% current_user.notifications.each do |notification| %>
-      <li>
-        <%= "#{notification.sender.email} has sent you a friend request" %>
-      </li>
-    <% end %>
+    <li>You have to <%= link_to "Sign in", new_user_session_path %> to see notifications</li>
   </ul>
-<%# end %>
+<% end %>
